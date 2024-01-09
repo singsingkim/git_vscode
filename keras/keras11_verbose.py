@@ -27,7 +27,7 @@ model.compile(loss = 'mse', optimizer = 'adam')
 model.fit(x_train, y_train, epochs = 100, batch_size = 2, verbose = 3)
 
 # verbose = 0 -> 침묵(출력x)
-# verbose = 1 -> 디폴트(상세하게 출력)
+# verbose = 1 -> 기존 상태, 디폴트, 상세하게 출력
 # verbose = 2 -> 프로그래스바 삭제(정보를 함축적으로 출력)
 # verbose = 3 -> 에포만 나온다
 
