@@ -43,7 +43,8 @@ from keras.callbacks import EarlyStopping       # 클래스는 정의가 필요
 es = EarlyStopping(monitor = 'val_loss',    # 상당히 중요한 함수
             mode = 'min',        # max 를 사용하는 경우도 있다 min, max, auto
             patience=10,      # 최소값 찾은 후 열 번 훈련 진행
-            verbose=1
+            verbose=1,
+            restore_best_weights=True   # 디폴트는 False    # 페이션스 진행 후 최소값을 최종값으로 리턴 
             )
 
 hist = model.fit(x_train, y_train, epochs = 10, 

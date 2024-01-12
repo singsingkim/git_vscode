@@ -3,9 +3,14 @@ from keras.models import Sequential
 from keras.layers import Dense
 
 x = np.array([1,2,3,4,5,6,7,8,9,10])
-y = np.array([1,2,3,4,5,6,7,8,9,10])
-x_train=x[:7:1]
-y_train=y[:7]
+#x = np.array([[1,2,3,4,5,6,7,8,9,10],[10,9,8,7,6,5,4,3,2,1]])
+y = np.array([[10,20,30,40,50,60,70,80,90,100],[100,90,80,70,60,50,40,30,20,10]])
+x_train=x[:3:]  
+#y_train=y[:3 ]
+
+print(x_train)
+#print(y_train)
+'''
 x_test=x[7:10:1]
 y_test=y[7:]
 print(x_train, x_test)
@@ -36,3 +41,5 @@ print("[10] 의 예측값 : ", result)
 # 로스 :  1.8189894035458565e-12
 # [10] 의 예측값 :  [[1.1000000e+04]
 #  [7.0000005e+00]]
+
+'''

@@ -32,10 +32,10 @@ print(np.unique(y, return_counts=True))
 # ========== 원 핫 인코딩 전처리 ==============
 # 1) 케라스
 from keras.utils import to_categorical
-y_ohe = to_categorical(y, num_classes=7)   # [0. 0. 0. ... 1. 0. 0.]
+y_ohe = to_categorical(y)   # [0. 0. 0. ... 1. 0. 0.]
 print(y_ohe)
 print(y_ohe.shape)  # (581012, 8)
-'''
+
 # 2) 판다스
 y_ohe2 = pd.get_dummies(y)  # False  False  False  False   True  False  False
 print(y_ohe2)
@@ -104,9 +104,7 @@ print("로스 : ", results[0])
 print("ACC : ", results[1])
 print("accuracy_score : ", acc)
 
-print(y_ohe.shape)  # (581012, 8)
-print(y_ohe2.shape) # (581012, 7)
-print(y_ohe.DESCR)
+
 # print(y_ohe2.describe)
 ################### 케라스 ########################
 
@@ -125,6 +123,3 @@ print(y_ohe.DESCR)
 
 
 
-
-
-'''

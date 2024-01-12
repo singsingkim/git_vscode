@@ -81,7 +81,7 @@ es = EarlyStopping(monitor = 'val_loss',    # 상당히 중요한 함수
                      restore_best_weights=True   # 디폴트는 False # 페이션스 진행 후 최소값을 최종값으로 리턴 
                      )
 
-hist = model.fit(x_train, y_train, epochs = 300,
+hist = model.fit(x_train, y_train, epochs = 3,
                  batch_size = 1, validation_split=0.2,
                  verbose=1, callbacks=[es])
 
@@ -102,8 +102,13 @@ print(y_predict)
 from sklearn.metrics import accuracy_score
 acc = accuracy_score(y_predict, y_test)
 print("accuracy_score : ", acc)
+print(y_predict)
 
 # 와이프레딕트에서 나온값을 np.아그맥스 를 통하면 숫자 비교 하고 가장 큰놈의 위치를 1로 잡겠다.
 # 분류에서 애큐러스 스코어를 사용할떄 
 
 # accuracy_score :  0.8888888888888888
+
+
+print(x.shape, y.shape)
+print(x_train.shape, y_train.shape)

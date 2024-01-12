@@ -58,7 +58,7 @@ print(y)
 
 x_train, x_test, y_train, y_test = train_test_split(
             x, y, shuffle=True, 
-            train_size= 0.7, random_state= 77777
+            train_size= 0.7, random_state= 8888
             )
 print(x_train.shape, x_test.shape)  # (929, 9) (399, 9)
 print(y_train.shape, y_test.shape)  # (929,) (399,)
@@ -73,19 +73,20 @@ model.add(Dense(4))
 model.add(Dense(1))
 
 #3. 컴파일, 훈련
-model.compile(loss = 'mse', optimizer = 'adam')
+model.compile(loss = 'mse', optimizer = 'adam',
+              metrics=['mse','mae'])
 start_time = time.time()
 
 from keras.callbacks import EarlyStopping       # 클래스는 정의가 필요
 es = EarlyStopping(monitor = 'val_loss',    # 상당히 중요한 함수
             mode = 'min',        # max 를 사용하는 경우도 있다 min, max, auto
-            patience=10,      # 최소값 찾은 후 설정값 만큼 훈련 진행
+            patience=100,      # 최소값 찾은 후 설정값 만큼 훈련 진행
             verbose=1,
             restore_best_weights=True   # 디폴트는 False # 페이션스 진행 후 최소값을 최종값으로 리턴 
             )
 
-hist = model.fit(x_train, y_train, epochs = 10,
-            batch_size = 100, validation_split=0.2,
+hist = model.fit(x_train, y_train, epochs = 1,
+            batch_size = 50, validation_split=0.2,
             verbose=1, callbacks=[es]
             )
 end_time = time.time()
@@ -100,9 +101,10 @@ print(y_submit.shape)   # (715, 1)
 print("========================================")
 ######## submission.csv 만들기(count 컬럼에 값만 넣어주면 됌) ########
 submission_csv['count'] = y_submit
-print(submission_csv)
-
-submission_csv.to_csv(path + "submission_0110_3.csv", index = False)
+print(submission_csv)   # [715 rows x 2 columns]
+print(y_submit)
+'''
+submission_csv.to_csv(path + "submission_0110_5.csv", index = False)
 
 y_predict=model.predict(x_test)
 r2 = r2_score(y_test, y_predict)
@@ -136,7 +138,7 @@ print("걸린시간 : ", round(end_time - start_time, 2),"초")
 # ★ 시각화 ★
 import matplotlib.pyplot as plt
 from matplotlib import font_manager, rc
-plt.figure(figsize=(11, 11))
+plt.figure(figsize=(9, 6))
 plt.plot(hist.history['loss'], c='red', label='loss', marker='.')    # plot 을 scatter 로 바ㅏ꾸면 점으로 실제 데이터가 직선으로 찍힘
 plt.plot(hist.history['val_loss'], c='blue', label='val_loss', marker='.')    # plot 을 scatter 로 바ㅏ꾸면 점으로 실제 데이터가 직선으로 찍힘
 plt.legend(loc='upper right')           # 오른쪽 위 라벨표시
@@ -145,7 +147,7 @@ plt.legend(loc='upper right')           # 오른쪽 위 라벨표시
 # font = font_manager.FontProperties(fname=font_path).get_name()
 # rc('font', family=font)
 
-plt.title('따릉이 로스')
+plt.title('ddarung loss')
 plt.xlabel('epoch')
 plt.ylabel('loss')
 plt.grid()
@@ -164,3 +166,4 @@ plt.show()
 # RMSE :  50.61270279985921
 # 걸린시간 :  22.7 초
 
+'''

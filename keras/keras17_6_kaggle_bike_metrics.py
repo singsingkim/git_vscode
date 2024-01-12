@@ -57,7 +57,7 @@ print(y)
 
 x_train, x_test, y_train, y_test = train_test_split(
                  x, y, shuffle=True, train_size= 0.7, 
-                 random_state= 77777
+                 random_state= 83633
 )
 print(x_train.shape, x_test.shape)  # (7620, 8) (3266, 8)
 print(y_train.shape, y_test.shape)  # (7620,) (3266,)
@@ -76,19 +76,20 @@ model.add(Dense(1))     # y = wx + b 결과가 음수가 나올때 다음 레이
                         # 최종프레딧에는 보통 softmax 사용
 
 #3. 컴파일, 훈련
-model.compile(loss = 'mse', optimizer = 'adam')
+model.compile(loss = 'mse', optimizer = 'adam',
+              metrics=['mse','mae'])
 start_time = time.time()
 
 from keras.callbacks import EarlyStopping       # 클래스는 정의가 필요
 es = EarlyStopping(monitor = 'val_loss',    # 상당히 중요한 함수
             mode = 'min',        # max 를 사용하는 경우도 있다 min, max, auto
-            patience=500,      # 최소값 찾은 후 열 번 훈련 진행
+            patience=100,      # 최소값 찾은 후 열 번 훈련 진행
             verbose=1,
             restore_best_weights=True   # 디폴트는 False    # 페이션스 진행 후 최소값을 최종값으로 리턴 
             )
 
-hist = model.fit(x_train, y_train, epochs = 3000,
-            batch_size = 40,validation_split= 0.3, 
+hist = model.fit(x_train, y_train, epochs = 1000,
+            batch_size = 50,validation_split= 0.2, 
             verbose=1, callbacks=[es]
             )
 
@@ -107,7 +108,7 @@ submission_csv['count'] = y_submit
 print(submission_csv)
 
 # 해당 경로에 submission_csv 파일 생성
-submission_csv.to_csv(path + "sampleSubmission_0110_1.csv", index = False)
+submission_csv.to_csv(path + "sampleSubmission_0110_5.csv", index = False)
 
 print("mse : ", loss)
 y_predict=model.predict(x_test)
@@ -116,7 +117,7 @@ r2 = r2_score(y_test, y_predict)
 print("음수갯수 : ", submission_csv[submission_csv['count']<0].count())     # 데이터프레임 조건, 판다스 문법
 
 def RMSE(y_test, y_predict):
-    return np.sqrt(mean_squared_error(y_test, y_predict))     
+    return np.sqrt(mean_squared_error(y_test, y_predict)) # np.sqrt 는 제곱근 = 루트 씌운다    
 rmse = RMSE(y_test, y_predict)             
 
 print("============ hist =============")
@@ -126,15 +127,16 @@ print("===============================")
 print(hist.history)     # 오늘과제 : 리스트, 딕셔너리=키(loss) : 똔똔 밸류 한 쌍괄호{}, 튜플
                                     # 두 개 이상은 리스트
                                     # 딕셔너리
-print("============ loss =============")
-print(hist.history['loss'])
-print("============ val_loss =========")
-print(hist.history['val_loss'])
-print("===============================")
+# print("============ loss =============")
+# print(hist.history['loss'])
+# print("============ val_loss =========")
+# print(hist.history['val_loss'])
+# print("===============================")
 
 print("mse : ", loss)    
 print("R2 스코어 : ", r2)               
 print("rmse", rmse)  
+# print("mae ",)
 print("걸린시간 : ", round(end_time - start_time, 2),"초")
 
 
@@ -153,7 +155,7 @@ plt.legend(loc='upper right')           # 오른쪽 위 라벨표시
 # plt.rcParams['font.family'] ='Malgun Gothic'
 # plt.rcParams['axes.unicode_minus'] =False
 
-plt.title('바이크 로스')
+plt.title('bike loss')
 plt.xlabel('epoch')
 plt.ylabel('loss')
 plt.grid()

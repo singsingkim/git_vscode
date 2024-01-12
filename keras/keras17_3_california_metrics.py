@@ -33,7 +33,8 @@ model.add(Dense(8))
 model.add(Dense(4))
 model.add(Dense(1))
 
-model.compile(loss = 'mse', optimizer = 'adam')
+model.compile(loss = 'mse', optimizer = 'adam',
+              metrics=['mse','mae'])
 start_time = time.time()
 
 from keras.callbacks import EarlyStopping       # 클래스는 정의가 필요
