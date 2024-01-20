@@ -136,7 +136,7 @@ model.compile(loss='categorical_crossentropy',optimizer='adam',metrics=['acc'])
 es=EarlyStopping(monitor='val_acc',mode='auto',patience=200,verbose=1,
                  restore_best_weights=True)
 mcp=ModelCheckpoint(monitor='val_acc',mode='auto',verbose=1,save_best_only=True,
-                    filepath=('../_data/_save/MCP/_test_MCP.hdf5'))
+                    filepath=('c:/_data/_save/MCP/_test_MCP.hdf5'))
 start_time=time.time()
 hist=model.fit(x_train,y_train,epochs=10000,batch_size=100,validation_split=0.1,callbacks=[es,mcp])
 end_time=time.time()

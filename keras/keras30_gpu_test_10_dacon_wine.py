@@ -176,10 +176,10 @@ date = date.strftime("%m%d_%H%M")
 print(date)         # 0117_1058
 print(type(date))   # <class 'str'>
 
-path2='..\_data\_save\MCP\\'
+path2='c:\_data\_save\MCP\\'
 filename = '{epoch:04d}-{val_loss:.4f}.hdf5'    # 0~9999 에포 , 0.9999 발로스
 filepath = "".join([path2,'k30_10_dacon_wine_', date,'_', filename])
-# '..\_data\_save\MCP\\k25_0117_1058_0101-0.3333.hdf5'
+# 'c:\_data\_save\MCP\\k25_0117_1058_0101-0.3333.hdf5'
 
 es = EarlyStopping(monitor = 'val_loss',    # 상당히 중요한 함수
                      mode = 'min',        # max 를 사용하는 경우도 있다 min, max, auto

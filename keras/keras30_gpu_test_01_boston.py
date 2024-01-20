@@ -71,7 +71,7 @@ date = date.strftime("%m%d_%H%M")
 print(date)         # 0117_1058
 print(type(date))   # <class 'str'>
 
-path='..\_data\_save\MCP\\'
+path='c:\_data\_save\MCP\\'
 filename = '{epoch:04d}-{val_loss:.4f}.hdf5'    # 0~9999 에포 , 0.9999 발로스
 filepath = "".join([path,'k30_01_boston', date,'_', filename])
 
