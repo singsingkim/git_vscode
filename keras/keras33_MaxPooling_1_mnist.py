@@ -4,7 +4,7 @@ import numpy as np
 from keras.datasets import mnist
 import pandas as pd
 from keras.models import Sequential
-from keras.layers import Dense, Conv2D,Flatten
+from keras.layers import Dense, Conv2D,Flatten, MaxPooling2D
 from sklearn.preprocessing import OneHotEncoder
 
 # 1. 데이터
@@ -44,13 +44,17 @@ y_test = one_hot.transform(y_test.reshape(-1, 1)).toarray()
 
 #2. 모델
 model = Sequential()
-model.add(Conv2D(9, (2,2), input_shape = (28, 28, 1))) 
+model.add(Conv2D(9, (2,2), input_shape = (28, 28, 1),
+                 strides=2, padding='same',
+                 )) 
+model.add(MaxPooling2D())
 model.add(Conv2D(16, (3,3), activation='relu')) #전달 (N,25,25,10)
 model.add(Conv2D(32,(4,4))) #전달 (N,22,22,15)
 model.add(Flatten()) #평탄화
 model.add(Dense(32, activation='relu'))
 model.add(Dense(16, activation='relu'))
 model.add(Dense(32, activation='relu'))
+model.add(MaxPooling2D())
 model.add(Dense(32, activation='relu'))
 model.add(Dense(32, activation='relu'))
 model.add(Dense(10, activation='softmax'))
