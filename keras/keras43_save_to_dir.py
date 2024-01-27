@@ -49,9 +49,11 @@ x_augumented = train_datagen.flow(
     x_augumented, y_augumented, # 플로우에서 4차원이 들어가야하는데 아큐먼트는 3차원이라 위에서 리쉐이프 해주어야한다
     batch_size = augumet_size,
     shuffle=False,
+    save_to_dir= 'C:/_data/temp/'
         
 ).next()[0]    # 6만개의 데이터서 4만개를 가져와서 변환시켰다 = 증폭과 같다
 
+'''
 print(x_augumented.shape)   # (40000, 28, 28, 1)
 
 print(x_train.shape)        # (60000, 28, 28)
@@ -63,5 +65,6 @@ x_train = np.concatenate((x_train, x_augumented))    # 사슬처럼 엮다
 y_train = np.concatenate((y_train, y_augumented))    # 사슬처럼 엮다
 
 print(x_train.shape, y_train.shape)
+'''
 
 
