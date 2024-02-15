@@ -16,7 +16,10 @@ y= train['NObeyesdad']
 # print(train.shape,test.shape)   #(20758, 17) (13840, 16)    NObeyesdad
 # print(x.shape,y.shape)  #(20758, 16) (20758,)
 
-NUM = 30
+TRAINSIZE = 0.8
+RS = 7
+NUM = 41
+
 SAVENAME = f'biman{NUM}'
 
 lb = LabelEncoder()
@@ -37,7 +40,7 @@ for column in columns_to_encode:
 # print(x['Gender'])
 # print(test['CALC'])
 x_train,x_test,y_train,y_test=train_test_split(
-    x,y,train_size=0.87,random_state=20,stratify=y)
+    x,y,train_size=TRAINSIZE,random_state=RS,stratify=y)
 
 # print(x_train.shape,y_train.shape)  #(18682, 16) (18682,)
 # print(x_test.shape,y_test.shape)    #(2076, 16) (2076,)
